@@ -1,7 +1,8 @@
+from . import views
 from django.urls import path
-from django.conf.urls import url
-from django.contrib import admin
-from django.urls import path, include
+from rest_framework.authtoken import views as drf_views
 
 urlpatterns = [
+    path('hello/', views.HelloView.as_view(), name='hello'),
+    path('auth/', drf_views.obtain_auth_token, name='auth'),
 ]
