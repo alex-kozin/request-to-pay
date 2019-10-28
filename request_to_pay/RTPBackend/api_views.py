@@ -1,5 +1,5 @@
 from rest_framework.generics import ValidationError
-from rest_framework.generics import ListAPIView, CreateAPIView
+from rest_framework.generics import ListAPIView, CreateAPIView, DestroyAPIView
 from django_filters.rest_framework import DjangoFilterBackend
 from .serializers import ItemSerializer
 from .models import Item
@@ -23,4 +23,9 @@ class ItemCreate(CreateAPIView):
         except:
             raise ValidationError({"price": "A valid number is required"})
         return super().create(request, *args, **kwargs)
+
+
+class ItemDestroy(DestroyAPIView):
+    queryset = Item.objects.all()
+    lookup_field = "id"
 
