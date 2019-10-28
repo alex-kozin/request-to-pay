@@ -1,5 +1,5 @@
 from rest_framework.generics import ValidationError
-from rest_framework.generics import ListAPIView, CreateAPIView, DestroyAPIView
+from rest_framework.generics import ListAPIView, CreateAPIView, RetrieveUpdateDestroyAPIView
 from django_filters.rest_framework import DjangoFilterBackend
 from .serializers import ItemSerializer
 from .models import Item
@@ -25,7 +25,8 @@ class ItemCreate(CreateAPIView):
         return super().create(request, *args, **kwargs)
 
 
-class ItemDestroy(DestroyAPIView):
+class ItemRetrieveUpdateDestroy(RetrieveUpdateDestroyAPIView):
     queryset = Item.objects.all()
     lookup_field = "id"
+    serializer_class = ItemSerializer
 
