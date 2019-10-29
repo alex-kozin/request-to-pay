@@ -14,7 +14,6 @@ class Order(models.Model):
     item = models.ForeignKey("Item", on_delete=models.CASCADE)
     quantity = models.IntegerField()
     price = models.DecimalField(decimal_places=2, max_digits=12)
-    driver = models.ForeignKey("userapi.UserProfile", on_delete=models.CASCADE)
 
 
 class Item(models.Model):
