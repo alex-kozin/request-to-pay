@@ -59,4 +59,5 @@ class UserProfile(models.Model):
     name = models.CharField( max_length=50, null=True)
     address = models.TextField(blank=True)
     user_type = models.CharField(choices=USER_CHOICES, max_length=1)
-    status = models.BooleanField()
+    is_delivering = models.BooleanField()
+
