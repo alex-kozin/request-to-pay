@@ -8,7 +8,7 @@ class Invoice(models.Model):
     driver = models.ForeignKey("userapi.UserProfile",related_name="invoices_to_check" , on_delete=models.CASCADE)
 
     def _calculate_price(self):
-        "Returns the price of the order"
+        "Returns the price of the invoice"
         return sum(int(order.price) for order in self.orders.all())
     price = property(_calculate_price)
 

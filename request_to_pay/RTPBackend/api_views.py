@@ -62,3 +62,28 @@ class InvoiceList(ListAPIView):
     serializer_class = InvoiceSerializer
     filter_backends = (DjangoFilterBackend, )
     filter_fields = ('id', )
+
+
+class InvoiceCreate(CreateAPIView):
+    serializer_class = InvoiceSerializer
+
+    def create(self, request, *args, **kwargs):
+        self._validate_user(request, "driver", "D")
+        self._validate_user(request, "customer", "C")
+
+        return super().create(request, *args, **kwargs)
+
+    @staticmethod
+    def _validate_user(request, user_role: str, user_type: str):
+        try:
+            user = request.data.get("user")
+            if user is not None and getattr(user, "user_type") != user_type:
+                raise ValidationError({user_role: f"Must be a {user_role} user"})
+        except:
+            raise ValidationError({user_role: "A valid driver is required"})
+
+
+class InvoiceRetrieveUpdateDestroy(RetrieveUpdateDestroyAPIView):
+    queryset = Invoice.objects.all()
+    lookup_field = "id"
+    serializer_class = InvoiceSerializer

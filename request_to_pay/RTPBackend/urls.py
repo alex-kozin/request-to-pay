@@ -11,4 +11,6 @@ urlpatterns = [
     path('orders/<int:id>/', api_views.OrderRetrieveUpdateDestroy.as_view()),
 
     path('invoices/', api_views.InvoiceList.as_view()),
+    path('invoices/new', api_views.InvoiceCreate.as_view()),
+    path('invoices/<int:id>/', api_views.InvoiceRetrieveUpdateDestroy.as_view()),
 ]
