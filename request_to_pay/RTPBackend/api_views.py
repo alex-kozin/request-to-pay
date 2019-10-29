@@ -37,3 +37,21 @@ class OrderList(ListAPIView):
     filter_backends = (DjangoFilterBackend, )
     filter_fields = ('id', )
 
+
+class OrderCreate(CreateAPIView):
+    serializer_class = OrderSerializer
+
+    def create(self, request, *args, **kwargs):
+        try:
+            quantity = request.data.get("quantity")
+            if quantity is not None and int(quantity) <= 0:
+                raise ValidationError({"quantity": "Must be above 0"})
+        except:
+            raise ValidationError({"quantity": "A valid integer is required"})
+        return super().create(request, *args, **kwargs)
+
+
+class OrderRetrieveUpdateDestroy(RetrieveUpdateDestroyAPIView):
+    queryset = Order.objects.all()
+    lookup_field = "id"
+    serializer_class = OrderSerializer
