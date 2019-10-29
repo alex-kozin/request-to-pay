@@ -5,4 +5,6 @@ urlpatterns = [
     path('items/', api_views.ItemList.as_view()),
     path('items/new', api_views.ItemCreate.as_view()),
     path('items/<int:id>/', api_views.ItemRetrieveUpdateDestroy.as_view()),
+
+    path('orders/', api_views.OrderList.as_view()),
 ]

@@ -13,7 +13,11 @@ class Order(models.Model):
     invoice = models.ForeignKey("Invoice", on_delete=models.CASCADE)
     item = models.ForeignKey("Item", on_delete=models.CASCADE)
     quantity = models.IntegerField()
-    price = models.DecimalField(decimal_places=2, max_digits=12)
+
+    def _calculate_price(self):
+        "Returns the price of the order"
+        return self.quantity * getattr(self.item, "price")
+    price = property(_calculate_price)
 
 
 class Item(models.Model):

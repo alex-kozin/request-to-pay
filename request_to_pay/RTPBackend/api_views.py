@@ -1,8 +1,8 @@
 from rest_framework.generics import ValidationError
 from rest_framework.generics import ListAPIView, CreateAPIView, RetrieveUpdateDestroyAPIView
 from django_filters.rest_framework import DjangoFilterBackend
-from .serializers import ItemSerializer
-from .models import Item
+from .serializers import ItemSerializer, OrderSerializer
+from .models import Item, Order
 
 
 class ItemList(ListAPIView):
@@ -29,4 +29,11 @@ class ItemRetrieveUpdateDestroy(RetrieveUpdateDestroyAPIView):
     queryset = Item.objects.all()
     lookup_field = "id"
     serializer_class = ItemSerializer
+
+
+class OrderList(ListAPIView):
+    queryset = Order.objects.all()
+    serializer_class = OrderSerializer
+    filter_backends = (DjangoFilterBackend, )
+    filter_fields = ('id', )
 
