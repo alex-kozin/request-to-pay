@@ -6,6 +6,7 @@ class Invoice(models.Model):
     price = models.DecimalField(decimal_places=2, max_digits=12)
     status = models.CharField(choices=STATUS_CHOICES, max_length=1)
     customer = models.ForeignKey("userapi.UserProfile", on_delete=models.CASCADE)
+    driver = models.ForeignKey("userapi.UserProfile", on_delete=models.CASCADE)
 
 
 class Order(models.Model):
@@ -13,7 +14,6 @@ class Order(models.Model):
     item = models.ForeignKey("Item", on_delete=models.CASCADE)
     quantity = models.IntegerField()
     price = models.DecimalField(decimal_places=2, max_digits=12)
-    driver = models.ForeignKey("userapi.UserProfile", on_delete=models.CASCADE)
 
 
 class Item(models.Model):
