@@ -1,7 +1,7 @@
 from django.urls import path
-from django.conf.urls import url
-from django.contrib import admin
-from django.urls import path, include
+from . import api_views
 
 urlpatterns = [
+    path('users/', api_views.UserProfileList.as_view()),
+    path('users/<int:id>/', api_views.UserProfileRetrieveUpdate.as_view()),
 ]
