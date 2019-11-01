@@ -29,6 +29,4 @@ class UserProfileSerializer(serializers.ModelSerializer):
         representation = super().to_representation(instance)
         if instance.user_type == 'C':
             representation['address'] = instance.address
-        elif instance.user_type == 'D':
-            representation['is_delivering'] = instance.is_delivering
         return representation

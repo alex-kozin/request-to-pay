@@ -14,8 +14,6 @@ class UserProfileList(ListAPIView):
 
 
 class UserProfileRetrieveUpdate(RetrieveUpdateAPIView):
-    """Currently does not support change of customer_type
-    due to NOT NULL dependency of is_delivering field"""
     queryset = UserProfile.objects.all()
     lookup_field = "id"
     serializer_class = UserProfileSerializer
