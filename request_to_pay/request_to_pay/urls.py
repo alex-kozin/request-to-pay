@@ -17,6 +17,10 @@ from django.contrib import admin
 from django.urls import path
 from django.conf.urls import include
 
+# admin - built-in admin panel support
+# userapi - module responsible for handling user creation, authentication, etc.
+# api - module responsible for logic related to invoicing, ordering and payments
+
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('userapi/', include('userapi.urls')),
