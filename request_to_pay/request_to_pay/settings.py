@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'rest_framework',
+    'django_filters',
     'rest_framework.authtoken',
     'userapi',
     'RTPBackend',
@@ -110,6 +111,7 @@ AUTH_PASSWORD_VALIDATORS = [
 ]
 
 AUTH_USER_MODEL = "userapi.User"
+
 
 # Internationalization
 # https://docs.djangoproject.com/en/2.2/topics/i18n/
