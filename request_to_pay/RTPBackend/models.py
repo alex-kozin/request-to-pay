@@ -3,15 +3,15 @@ from django.db import models
 
 class Invoice(models.Model):
     """
-    An invoice from Coke to Small Business Owner
+    An invoice from Coke to Small Business Owner.
 
     Fields
     ----------
-    status : CharField
+    status: CharField
         the current status of this invoice, can be:
         "A" - Active, "P" - Paid, "D" - Delivered
 
-    customer : UserProfile
+    customer: UserProfile
         the customer that has to pay this invoice
 
     driver: UserProfile
@@ -58,10 +58,10 @@ class Order(models.Model):
 
     Fields
     ----------
-    invoice : Invoice
+    invoice: Invoice
         the invoice this order belongs to
 
-    item : Item
+    item: Item
         the type of the item ordered
 
     quantity: IntegerField
@@ -94,10 +94,10 @@ class Item(models.Model):
 
     Fields
     ----------
-    name : CharField
+    name: CharField
         the name of the item
 
-    price : DecimalField
+    price: DecimalField
         the price of the item
 
     === Representation Invariants ===
