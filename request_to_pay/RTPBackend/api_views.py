@@ -6,6 +6,7 @@ from .models import Item, Order, Invoice
 
 
 class ItemList(ListAPIView):
+    """View all items available for purchase"""
     queryset = Item.objects.all()
     serializer_class = ItemSerializer
     filter_backends = (DjangoFilterBackend, )
@@ -13,9 +14,11 @@ class ItemList(ListAPIView):
 
 
 class ItemCreate(CreateAPIView):
+    """Create a new item"""
     serializer_class = ItemSerializer
 
     def create(self, request, *args, **kwargs):
+        """Check if price > 0"""
         try:
             price = request.data.get("price")
             if price is not None and float(price) <= 0.0:
@@ -26,12 +29,14 @@ class ItemCreate(CreateAPIView):
 
 
 class ItemRetrieveUpdateDestroy(RetrieveUpdateDestroyAPIView):
+    """Read and update, or delete an item based on id"""
     queryset = Item.objects.all()
     lookup_field = "id"
     serializer_class = ItemSerializer
 
 
 class OrderList(ListAPIView):
+    """View all orders made"""
     queryset = Order.objects.all()
     serializer_class = OrderSerializer
     filter_backends = (DjangoFilterBackend, )
@@ -39,9 +44,11 @@ class OrderList(ListAPIView):
 
 
 class OrderCreate(CreateAPIView):
+    """Make a new order"""
     serializer_class = OrderSerializer
 
     def create(self, request, *args, **kwargs):
+        """Check if quantity requested is greater than 0"""
         try:
             quantity = request.data.get("quantity")
             if quantity is not None and int(quantity) <= 0:
@@ -52,12 +59,14 @@ class OrderCreate(CreateAPIView):
 
 
 class OrderRetrieveUpdateDestroy(RetrieveUpdateDestroyAPIView):
+    """Read and update, or delete an order based on id"""
     queryset = Order.objects.all()
     lookup_field = "id"
     serializer_class = OrderSerializer
 
 
 class InvoiceList(ListAPIView):
+    """View all invoices created"""
     queryset = Invoice.objects.all()
     serializer_class = InvoiceSerializer
     filter_backends = (DjangoFilterBackend, )
@@ -65,9 +74,11 @@ class InvoiceList(ListAPIView):
 
 
 class InvoiceCreate(CreateAPIView):
+    """Create a new invoice"""
     serializer_class = InvoiceSerializer
 
     def create(self, request, *args, **kwargs):
+        """Check if users have correct roles"""
         self._validate_user(request, "driver", "D")
         self._validate_user(request, "customer", "C")
 
@@ -75,6 +86,7 @@ class InvoiceCreate(CreateAPIView):
 
     @staticmethod
     def _validate_user(request, user_role: str, user_type: str):
+        """Check if user_type from request data fits the user_role"""
         try:
             user = request.data.get("user")
             if user is not None and getattr(user, "user_type") != user_type:
@@ -84,6 +96,7 @@ class InvoiceCreate(CreateAPIView):
 
 
 class InvoiceRetrieveUpdateDestroy(RetrieveUpdateDestroyAPIView):
+    """Read and update, or delete an invoice based on id"""
     queryset = Invoice.objects.all()
     lookup_field = "id"
     serializer_class = InvoiceSerializer
