@@ -2,8 +2,6 @@
 
 This is the description of all API endpoints for the back-end.
 
-(All *unavailable* endpoints are in *cursive*)
-
 ## API Docs at `/docs`
 
 ## Admin Panel at `/admin`
@@ -21,8 +19,12 @@ This is the description of all API endpoints for the back-end.
 ### Invoices at `/invoices`
  - `/new`
  - `/<int:id>`
+ 
+ - `?status=<string:s>` - UNAVAILABLE
 
 ## UserAPI at `/userapi`
 
 ### UserProfiles at `/users`
  - `/<int:id>`
+ 
+ - `/<int:id>/notify=<string:s>` - UNAVAILABLE
