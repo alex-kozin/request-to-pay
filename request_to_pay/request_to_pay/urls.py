@@ -20,6 +20,10 @@ from rest_framework_swagger.views import get_swagger_view
 
 schema_view = get_swagger_view(title='Request-To-Pay API')
 
+# admin - built-in admin panel support
+# userapi - module responsible for handling user creation, authentication, etc.
+# api - module responsible for logic related to invoicing, ordering and payments
+
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('userapi/', include('userapi.urls')),
