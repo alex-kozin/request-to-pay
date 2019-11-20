@@ -39,6 +39,17 @@ class UserManager(BaseUserManager):
 
 
 class User(AbstractUser):
+    """
+    A User in the app with email as login
+
+    Fields
+    ----------
+    email: EmailField
+        the email and login of this user
+
+    === Representation Invariants ===
+    -   email is not None
+    """
     username = None
     email = models.EmailField(_('email address'), unique=True)
 
@@ -52,10 +63,33 @@ class User(AbstractUser):
 
 
 class UserProfile(models.Model):
+    """
+    A profile associated with exactly one user of the app
+
+    Fields
+    ----------
+    user: User
+        the user of this profile
+
+    name: CharField
+        the name of this user
+
+    address: TextField
+        the address of the customer
+
+    user_type: CharField
+        the type of user for this profile, can be:
+        "S" - Supplier, "C" - Customer, "D" - Driver
+
+    === Representation Invariants ===
+    -   user_type: "S" | "C" | "D"
+    -   len(user_type) == 1
+    -   if user_type == 'C' then address is not None
+    """
     USER_CHOICES = [("S", "Suppliers"), ("C", "Customer"), ("D", "Driver")]
     user = models.OneToOneField(settings.AUTH_USER_MODEL,
                                 on_delete=models.CASCADE,
                                 related_name='profile')
-    name = models.CharField( max_length=50, null=True)
+    name = models.CharField(max_length=50, null=True)
     address = models.TextField(blank=True)
     user_type = models.CharField(choices=USER_CHOICES, max_length=1)

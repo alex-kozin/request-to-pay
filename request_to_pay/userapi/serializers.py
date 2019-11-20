@@ -10,6 +10,10 @@ class UserSerializer(serializers.ModelSerializer):
          "date_joined")
 
     def to_representation(self, instance):
+        """
+        Show additional field 'admin' if the user has admin rights
+        and field 'active' is the user is inactive
+        """
         representation = super().to_representation(instance)
         if instance.is_superuser:
             representation['admin'] = True
@@ -26,6 +30,9 @@ class UserProfileSerializer(serializers.ModelSerializer):
         fields = ("user", "user_type")
 
     def to_representation(self, instance):
+        """
+        Show address information if the user is a customer
+        """
         representation = super().to_representation(instance)
         if instance.user_type == 'C':
             representation['address'] = instance.address
