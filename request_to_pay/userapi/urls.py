@@ -4,6 +4,7 @@ from . import views
 from . import api_views
 
 urlpatterns = [
+    path('', views.ProfileView.as_view(), name='whoami'),
     path('hello/', views.HelloView.as_view(), name='hello'),
     path('auth/', drf_views.obtain_auth_token, name='auth'),
 
