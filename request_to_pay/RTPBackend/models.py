@@ -51,7 +51,7 @@ class Invoice(models.Model):
 
     def _calculate_price(self):
         "Returns the price of the invoice"
-        return sum(int(order.price) for order in self.orders.all())
+        return sum(float(order.price) for order in self.orders.all())
     price = property(_calculate_price)
 
     def __str__(self):
