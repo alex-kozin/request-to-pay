@@ -1,3 +1,0 @@
-[submodule "request_to_pay/request-to-pay-frontend"]
-	path = request_to_pay/request-to-pay-frontend
-	url = https://github.com/aaangelaaa/request-to-pay-frontend.git
