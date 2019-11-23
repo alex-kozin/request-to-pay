@@ -54,6 +54,9 @@ class Invoice(models.Model):
         return sum(int(order.price) for order in self.orders.all())
     price = property(_calculate_price)
 
+    def __str__(self):
+        return f"{self.id}"
+
 
 class Order(models.Model):
     """
@@ -90,6 +93,9 @@ class Order(models.Model):
         "Returns the price of the order"
         return self.quantity * getattr(self.item, "price")
     price = property(_calculate_price)
+
+    def __str__(self):
+        return f"{self.quantity} x {self.item} @ {self.price}"
 
 
 class Item(models.Model):

@@ -28,13 +28,9 @@ class InvoiceAdmin(admin.ModelAdmin):
     inlines = [
         makeTabular(models.Order),
     ]
-
+    
     def get_changeform_initial_data(self, request):
-        return {
-            'status': 'A',
-            'driver': user_models.UserProfile.objects.filter(user_type='D'),
-            'customer': user_models.UserProfile.objects.filter(user_type='B')
-            }
+        return {'status': 'A',}
 
 class ItemAdmin(admin.ModelAdmin):
     list_display = ['name', 'price']
