@@ -27,7 +27,7 @@ class UserProfileSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = UserProfile
-        fields = ("user", "user_type")
+        fields = ("id", "user", "user_type")
 
     def to_representation(self, instance):
         """

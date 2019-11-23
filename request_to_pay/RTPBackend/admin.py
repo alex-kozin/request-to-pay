@@ -9,6 +9,8 @@ admin.site.register(user_models.User)
 admin.site.register(user_models.UserProfile)
 
 # Custom admin widgets
+
+
 def makeTabular(model):
     """
     Use Python metaprogramming to
@@ -24,25 +26,29 @@ def makeTabular(model):
         )
     )
 
+
 class InvoiceAdmin(admin.ModelAdmin):
     list_display = ['id', 'total_price', 'customer', 'driver']
-    list_display_links=['id', 'customer', 'driver']
+    list_display_links = ['id', 'customer', 'driver']
 
     inlines = [
         makeTabular(models.Order),
     ]
 
     def total_price(self, obj):
-        return f"${obj.price}"
+        return "${:.2f}".format(obj.price)
 
     def get_changeform_initial_data(self, request):
-        return {'status': 'A',}
+        return {'status': 'A', }
+
 
 class ItemAdmin(admin.ModelAdmin):
     list_display = ['__str__', 'price']
 
+
 class OrderAdmin(admin.ModelAdmin):
     list_display = ['item', 'price', 'invoice']
+    list_display_links = ['item', 'invoice']
 
     def item(self, obj):
         name = str(obj)
