@@ -39,11 +39,15 @@ class Invoice(models.Model):
 
     customer = models.ForeignKey("userapi.UserProfile",
                                  related_name="invoices_to_pay",
-                                 on_delete=models.CASCADE)
+                                 on_delete=models.CASCADE,
+                                 limit_choices_to={'user_type': 'C'}
+                                 )
 
     driver = models.ForeignKey("userapi.UserProfile",
-                               related_name="invoices_to_check" ,
-                               on_delete=models.CASCADE)
+                               related_name="invoices_to_check",
+                               on_delete=models.CASCADE,
+                               limit_choices_to={'user_type': 'D'}
+                               )
 
     def _calculate_price(self):
         "Returns the price of the invoice"

@@ -30,7 +30,11 @@ class InvoiceAdmin(admin.ModelAdmin):
     ]
 
     def get_changeform_initial_data(self, request):
-        return {'status': 'A'}
+        return {
+            'status': 'A',
+            'driver': user_models.UserProfile.objects.filter(user_type='D'),
+            'customer': user_models.UserProfile.objects.filter(user_type='B')
+            }
 
 class ItemAdmin(admin.ModelAdmin):
     list_display = ['name', 'price']
