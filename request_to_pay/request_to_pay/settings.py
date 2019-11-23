@@ -82,14 +82,31 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'request_to_pay.wsgi.application'
 
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+ACCOUNT_EMAIL_VERIFICATION = 'mandatory'
+ACCOUNT_AUTHENTICATION_METHOD = 'email'
+ACCOUNT_EMAIL_REQUIRED = True
+ACCOUNT_USERNAME_REQUIRED = False
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+EMAIL_HOST_USER = 'allahanium@gmail.com'
+EMAIL_HOST_PASSWORD = 'wbzbaedtwjnfxhxy'
+
+
 REST_FRAMEWORK = {
   'DEFAULT_SCHEMA_CLASS': 'rest_framework.schemas.coreapi.AutoSchema'
 }
 
 REST_REGISTRATION = {
-    'REGISTER_VERIFICATION_ENABLED': False,
-    'REGISTER_EMAIL_VERIFICATION_ENABLED': False,
+    'REGISTER_VERIFICATION_ENABLED': True,
+    'REGISTER_VERIFICATION_URL': "localhost:8000/accounts/verify-registration/",
+    'REGISTER_EMAIL_VERIFICATION_ENABLED': True,
+    'REGISTER_EMAIL_VERIFICATION_URL': 'localhost:8000/accounts/verify-email/',
     'RESET_PASSWORD_VERIFICATION_ENABLED': False,
+
+    'VERIFICATION_FROM_EMAIL': "allahanium@gmail.com",
+
 }
 
 # Database

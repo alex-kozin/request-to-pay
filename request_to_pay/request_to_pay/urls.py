@@ -29,5 +29,5 @@ urlpatterns = [
     path('userapi/', include('userapi.urls')),
     path('api/', include('RTPBackend.urls')),
     path('docs/', schema_view),
-    path('accounts/', include('rest_registration.api.urls')),
+    path('accounts/', include('rest_registration.api.urls'))
 ]
