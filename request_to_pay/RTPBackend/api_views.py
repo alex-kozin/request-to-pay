@@ -70,7 +70,7 @@ class InvoiceList(ListAPIView):
     queryset = Invoice.objects.all()
     serializer_class = InvoiceSerializer
     filter_backends = (DjangoFilterBackend, )
-    filter_fields = ('id', )
+    filter_fields = ('id', 'driver', 'customer')
 
 
 class InvoiceCreate(CreateAPIView):

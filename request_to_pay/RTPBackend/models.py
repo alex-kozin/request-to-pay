@@ -95,7 +95,7 @@ class Order(models.Model):
     price = property(_calculate_price)
 
     def __str__(self):
-        return f"{self.quantity} x {self.item} @ {self.price}"
+        return f"{self.quantity} x {self.item} @ ${self.price}"
 
 
 class Item(models.Model):

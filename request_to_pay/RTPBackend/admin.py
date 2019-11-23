@@ -25,20 +25,32 @@ def makeTabular(model):
     )
 
 class InvoiceAdmin(admin.ModelAdmin):
+    list_display = ['id', 'customer', 'driver']
+
     inlines = [
         makeTabular(models.Order),
     ]
-    
+
     def get_changeform_initial_data(self, request):
         return {'status': 'A',}
 
 class ItemAdmin(admin.ModelAdmin):
-    list_display = ['name', 'price']
+    list_display = ['__str__', 'price']
 
+class OrderAdmin(admin.ModelAdmin):
+    list_display = ['item', 'price', 'invoice']
+
+    def item(self, obj):
+        name = str(obj)
+        return name[:name.index('@')]
+
+    def price(self, obj):
+        return f"${obj.price}"
 
 
 admin.site.register(models.Invoice, InvoiceAdmin)
 admin.site.register(models.Item, ItemAdmin)
+admin.site.register(models.Order, OrderAdmin)
 
 # Programmatically register every model defined in RTPBackend.models.
 # If the model has a custom admin panel, ignore it.
