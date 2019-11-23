@@ -25,11 +25,15 @@ def makeTabular(model):
     )
 
 class InvoiceAdmin(admin.ModelAdmin):
-    list_display = ['id', 'customer', 'driver']
+    list_display = ['id', 'total_price', 'customer', 'driver']
+    list_display_links=['id', 'customer', 'driver']
 
     inlines = [
         makeTabular(models.Order),
     ]
+
+    def total_price(self, obj):
+        return f"${obj.price}"
 
     def get_changeform_initial_data(self, request):
         return {'status': 'A',}

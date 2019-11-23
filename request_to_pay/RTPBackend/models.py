@@ -1,4 +1,8 @@
 from django.db import models
+import uuid
+
+def short_uuid():
+    return uuid.uuid4().hex[:8]
 
 
 class Invoice(models.Model):
@@ -34,6 +38,12 @@ class Invoice(models.Model):
     -   driver.usertype == 'D'
     -   price is the sum of prices for all orders on the invoice
     """
+    id = models.CharField(
+        primary_key=True,
+        default=short_uuid,
+        max_length=8,
+        editable=False
+    )
     STATUS_CHOICES = [("A", "Active"), ("P", "Paid"), ("D", "Delivered")]
     status = models.CharField(choices=STATUS_CHOICES, max_length=1)
 
