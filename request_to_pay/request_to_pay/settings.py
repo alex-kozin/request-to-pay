@@ -103,12 +103,20 @@ REST_REGISTRATION = {
     # send POST request with Authorization: "Token ..." revoke_token = True
     # to /logout endpoint to delete the token
     'LOGIN_RETRIEVE_TOKEN': True,
+
     'REGISTER_VERIFICATION_ENABLED': True,
+    'REGISTER_SERIALIZER_PASSWORD_CONFIRM' : False,
     'REGISTER_VERIFICATION_URL': "localhost:3000/verify-registration/",
+    # User model field - boolean flag whether the user was verified
+    # default = 'is_active'
+    'USER_VERIFICATION_FLAG_FIELD' : 'email_verified',
+
     'REGISTER_EMAIL_VERIFICATION_ENABLED': True,
     'REGISTER_EMAIL_VERIFICATION_URL': 'localhost:3000/verify-email/',
+
     'RESET_PASSWORD_VERIFICATION_ENABLED': True,
     'RESET_PASSWORD_VERIFICATION_URL': 'localhost:3000/reset-password/',
+
 
     # SECURITY WARNING: don't run with this email in production!
     'VERIFICATION_FROM_EMAIL': "allahanium@gmail.com",
