@@ -46,12 +46,6 @@ INSTALLED_APPS = [
     'RTPBackend',
 ]
 
-REST_FRAMEWORK = {
-    'DEFAULT_AUTHENTICATION_CLASSES': [
-        'rest_framework.authentication.TokenAuthentication',
-    ]
-}
-
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -90,21 +84,33 @@ ACCOUNT_USERNAME_REQUIRED = False
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
+# SECURITY WARNING: don't run with this email in production!
 EMAIL_HOST_USER = 'allahanium@gmail.com'
+# SECURITY WARNING: keep the password for the email used in production secret!
 EMAIL_HOST_PASSWORD = 'wbzbaedtwjnfxhxy'
 
 
-REST_FRAMEWORK = {
-  'DEFAULT_SCHEMA_CLASS': 'rest_framework.schemas.coreapi.AutoSchema'
-}
-
 REST_REGISTRATION = {
-    'REGISTER_VERIFICATION_ENABLED': True,
-    'REGISTER_VERIFICATION_URL': "localhost:8000/accounts/verify-registration/",
-    'REGISTER_EMAIL_VERIFICATION_ENABLED': True,
-    'REGISTER_EMAIL_VERIFICATION_URL': 'localhost:8000/accounts/verify-email/',
-    'RESET_PASSWORD_VERIFICATION_ENABLED': False,
+    'USER_HIDDEN_FIELDS' : ('is_active',
+                             'is_staff',
+                             'is_superuser',
+                             'user_permissions',
+                             'groups',
+                             'date_joined',
+                             'email_verified'),
 
+    # Enables token deletion on logout
+    # send POST request with Authorization: "Token ..." revoke_token = True
+    # to /logout endpoint to delete the token
+    'LOGIN_RETRIEVE_TOKEN': True,
+    'REGISTER_VERIFICATION_ENABLED': True,
+    'REGISTER_VERIFICATION_URL': "localhost:3000/verify-registration/",
+    'REGISTER_EMAIL_VERIFICATION_ENABLED': True,
+    'REGISTER_EMAIL_VERIFICATION_URL': 'localhost:3000/verify-email/',
+    'RESET_PASSWORD_VERIFICATION_ENABLED': True,
+    'RESET_PASSWORD_VERIFICATION_URL': 'localhost:3000/reset-password/',
+
+    # SECURITY WARNING: don't run with this email in production!
     'VERIFICATION_FROM_EMAIL': "allahanium@gmail.com",
 
 }
