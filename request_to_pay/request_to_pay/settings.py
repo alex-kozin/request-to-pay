@@ -25,7 +25,7 @@ SECRET_KEY = '_hgpcvux!cde98os87-^h9q@^xbgvq*gba*bz$y1q27ct!=4$b'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [u'localhost']
 
 
 # Application definition
@@ -157,9 +157,8 @@ AUTH_USER_MODEL = "userapi.User"
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': [
         'rest_framework.authentication.TokenAuthentication',
-        'rest_framework.authentication.SessionAuthentication',
-    ],
-    # TODO: this breaks the code. Why?
+    ] + (['rest_framework.authentication.SessionAuthentication'] if DEBUG else []),
+    # TODO: this breaks the code.
     #  'DEFAULT_SCHEMA_CLASS': 'rest_framework.schemas.coreapi.AutoSchema'
 }
 
