@@ -17,7 +17,9 @@ class UserProfileList(ListAPIView):
 
 
 class UserProfileRetrieveUpdate(RetrieveUpdateAPIView):
-    """Read, update or delete user profiles based on id"""
+    """
+    Read, update or delete user profiles based on id.
+    """
     queryset = UserProfile.objects.all()
     lookup_field = "id"
     serializer_class = UserProfileSerializer

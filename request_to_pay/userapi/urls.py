@@ -7,6 +7,7 @@ urlpatterns = [
     path('', views.ProfileView.as_view(), name='whoami'),
     path('hello/', views.HelloView.as_view(), name='hello'),
     path('auth/', drf_views.obtain_auth_token, name='auth'),
+
     path('users/', api_views.UserProfileList.as_view()),
     path('users/<int:id>/', api_views.UserProfileRetrieveUpdate.as_view()),
 ]

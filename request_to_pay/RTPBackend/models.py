@@ -1,4 +1,8 @@
 from django.db import models
+import uuid
+
+def short_uuid():
+    return uuid.uuid4().hex[:8]
 
 
 class Invoice(models.Model):
@@ -34,21 +38,34 @@ class Invoice(models.Model):
     -   driver.usertype == 'D'
     -   price is the sum of prices for all orders on the invoice
     """
+    id = models.CharField(
+        primary_key=True,
+        default=short_uuid,
+        max_length=8,
+        editable=False
+    )
     STATUS_CHOICES = [("A", "Active"), ("P", "Paid"), ("D", "Delivered")]
     status = models.CharField(choices=STATUS_CHOICES, max_length=1)
 
     customer = models.ForeignKey("userapi.UserProfile",
                                  related_name="invoices_to_pay",
-                                 on_delete=models.CASCADE)
+                                 on_delete=models.CASCADE,
+                                 limit_choices_to={'user_type': 'C'}
+                                 )
 
     driver = models.ForeignKey("userapi.UserProfile",
-                               related_name="invoices_to_check" ,
-                               on_delete=models.CASCADE)
+                               related_name="invoices_to_check",
+                               on_delete=models.CASCADE,
+                               limit_choices_to={'user_type': 'D'}
+                               )
 
     def _calculate_price(self):
         "Returns the price of the invoice"
-        return sum(int(order.price) for order in self.orders.all())
+        return sum(float(order.price) for order in self.orders.all())
     price = property(_calculate_price)
+
+    def __str__(self):
+        return f"{self.id}"
 
 
 class Order(models.Model):
@@ -87,6 +104,9 @@ class Order(models.Model):
         return self.quantity * getattr(self.item, "price")
     price = property(_calculate_price)
 
+    def __str__(self):
+        return f"{self.quantity} x {self.item} @ ${self.price}"
+
 
 class Item(models.Model):
     """
@@ -106,3 +126,6 @@ class Item(models.Model):
     """
     name = models.CharField(max_length=50)
     price = models.DecimalField(decimal_places=2, max_digits=12)
+
+    def __str__(self):
+        return self.name

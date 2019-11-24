@@ -13,6 +13,8 @@ class HelloView(APIView):
 
 
 class ProfileView(APIView):
+    """Decode the current user based on their token,
+    and return their serialized profile information."""
     permission_classes = (IsAuthenticated,)
 
     def get(self, request):
