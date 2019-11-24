@@ -47,11 +47,15 @@ class User(AbstractUser):
     email: EmailField
         the email and login of this user
 
+    email_verified: BooleanField
+        a flag whether this user verified their email
+
     === Representation Invariants ===
     -   email is not None
     """
     username = None
     email = models.EmailField(_('email address'), unique=True)
+    email_verified = models.BooleanField(default=False)
 
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = []
