@@ -157,12 +157,7 @@ AUTH_USER_MODEL = "userapi.User"
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': [
         'rest_framework.authentication.TokenAuthentication',
-<<<<<<< HEAD
     ] + (['rest_framework.authentication.SessionAuthentication'] if DEBUG else []),
-    # TODO: this breaks the code.
-=======
-    ],
->>>>>>> parent of c46e224... Fixed migrations and DB settings.
      'DEFAULT_SCHEMA_CLASS': 'rest_framework.schemas.coreapi.AutoSchema'
 }
 
