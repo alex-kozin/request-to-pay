@@ -1,8 +1,8 @@
-﻿id,name,address,user_type,is_delivering
-1,Coca-Cola,,S,
-2,Jim's Truck Stop,"45 Street Avenue, Venice, Florida",C,
-3,The PokeMart,"House 4, Sandgem Town, Sinnoh",C,
-4,Jessica Rabbit,,D,FALSE
-5,John Hopkins,,D,FALSE
-6,Jaime Alvarez,,D,FALSE
-7,Quincy Khan,,D,FALSE
+﻿id,name,address,user_type,is_delivering,user_id
+1,Coca-Cola,,S,,
+2,Jim's Truck Stop,"45 Street Avenue, Venice, Florida",C,,
+3,The PokeMart,"House 4, Sandgem Town, Sinnoh",C,,
+4,Jessica Rabbit,,D,FALSE,
+5,John Hopkins,,D,FALSE,
+6,Jaime Alvarez,,D,FALSE,
+7,Quincy Khan,,D,FALSE,

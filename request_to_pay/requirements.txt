@@ -7,7 +7,7 @@ Django==2.2.7
 django-filter==2.2.0
 django-rest-registration==0.5.2
 django-rest-swagger==2.2.0
-djangorestframework==3.9.4
+djangorestframework==3.10.3
 httpie==1.0.3
 idna==2.8
 itypes==1.1.0
