@@ -15,4 +15,5 @@ urlpatterns = [
     path('invoices/new', api_views.InvoiceCreate.as_view()),
     path('invoices/<int:id>/', api_views.InvoiceRetrieveUpdateDestroy.as_view()),
     path('pay/', views.DriverNotificationView.as_view()),
-]
+    path('notifycustomer/', views.CustomerNotificationVIew.as_view()),
+    ]
