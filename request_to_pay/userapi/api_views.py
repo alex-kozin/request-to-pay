@@ -1,25 +1,24 @@
-from rest_framework.generics import ListAPIView, CreateAPIView, \
-    RetrieveUpdateAPIView
+from rest_framework.generics import ListAPIView, RetrieveUpdateAPIView
 from django_filters.rest_framework import DjangoFilterBackend
-from .serializers import UserProfileSerializer
+from .serializers import UserSerializer
 
-from .models import UserProfile
+from .models import User
 
 
-class UserProfileList(ListAPIView):
+class UserList(ListAPIView):
     """
-    View all user profiles ever created. Filtering based on user type enabled.
+    View all users ever created. Filtering based on user type and email enabled.
     """
-    queryset = UserProfile.objects.all()
-    serializer_class = UserProfileSerializer
+    queryset = User.objects.all()
+    serializer_class = UserSerializer
     filter_backends = (DjangoFilterBackend, )
-    filter_fields = ('id', 'user_type')
+    filter_fields = ('id', 'user_type', 'email')
 
 
-class UserProfileRetrieveUpdate(RetrieveUpdateAPIView):
+class UserRetrieveUpdate(RetrieveUpdateAPIView):
     """
-    Read, update or delete user profiles based on id.
+    Read, update or delete users based on id.
     """
-    queryset = UserProfile.objects.all()
+    queryset = User.objects.all()
     lookup_field = "id"
-    serializer_class = UserProfileSerializer
+    serializer_class = UserSerializer

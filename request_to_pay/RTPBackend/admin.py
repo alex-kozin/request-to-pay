@@ -6,7 +6,6 @@ from userapi import models as user_models
 
 
 admin.site.register(user_models.User)
-admin.site.register(user_models.UserProfile)
 
 # Custom admin widgets
 

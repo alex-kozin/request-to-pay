@@ -109,7 +109,7 @@ REST_REGISTRATION = {
     'REGISTER_VERIFICATION_URL': "localhost:3000/verify-registration/",
     # User model field - boolean flag whether the user was verified
     # default = 'is_active'
-    'USER_VERIFICATION_FLAG_FIELD' : 'email_verified',
+    'USER_VERIFICATION_FLAG_FIELD': 'email_verified',
 
     'REGISTER_EMAIL_VERIFICATION_ENABLED': True,
     'REGISTER_EMAIL_VERIFICATION_URL': 'localhost:3000/verify-email/',
