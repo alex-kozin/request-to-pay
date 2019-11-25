@@ -105,7 +105,6 @@ AUTH_PASSWORD_VALIDATORS = [
 
 AUTH_USER_MODEL = "userapi.User"
 
-<<<<<<< HEAD
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': [
         'rest_framework.authentication.TokenAuthentication',
@@ -113,8 +112,6 @@ REST_FRAMEWORK = {
     # TODO: this breaks the code.
     #  'DEFAULT_SCHEMA_CLASS': 'rest_framework.schemas.coreapi.AutoSchema'
 }
-=======
->>>>>>> origin/master
 
 # Internationalization
 # https://docs.djangoproject.com/en/2.2/topics/i18n/
