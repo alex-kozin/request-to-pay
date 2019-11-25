@@ -38,10 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'rest_framework',
-    'rest_framework.authtoken',
-    'rest_registration',
     'django_filters',
-    'rest_framework_swagger',
     'userapi',
     'RTPBackend',
 ]
@@ -76,52 +73,6 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'request_to_pay.wsgi.application'
 
-EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-ACCOUNT_EMAIL_VERIFICATION = 'mandatory'
-ACCOUNT_AUTHENTICATION_METHOD = 'email'
-ACCOUNT_EMAIL_REQUIRED = True
-ACCOUNT_USERNAME_REQUIRED = False
-EMAIL_HOST = 'smtp.gmail.com'
-EMAIL_PORT = 587
-EMAIL_USE_TLS = True
-# SECURITY WARNING: don't run with this email in production!
-EMAIL_HOST_USER = 'allahanium@gmail.com'
-# SECURITY WARNING: keep the password for the email used in production secret!
-EMAIL_HOST_PASSWORD = 'wbzbaedtwjnfxhxy'
-
-
-REST_REGISTRATION = {
-    'USER_HIDDEN_FIELDS' : ('is_active',
-                             'is_staff',
-                             'is_superuser',
-                             'user_permissions',
-                             'groups',
-                             'date_joined',
-                             'email_verified'),
-
-    # Enables token deletion on logout
-    # send POST request with Authorization: "Token ..." revoke_token = True
-    # to /logout endpoint to delete the token
-    'LOGIN_RETRIEVE_TOKEN': True,
-
-    'REGISTER_VERIFICATION_ENABLED': True,
-    'REGISTER_SERIALIZER_PASSWORD_CONFIRM' : False,
-    'REGISTER_VERIFICATION_URL': "localhost:3000/verify-registration/",
-    # User model field - boolean flag whether the user was verified
-    # default = 'is_active'
-    'USER_VERIFICATION_FLAG_FIELD' : 'email_verified',
-
-    'REGISTER_EMAIL_VERIFICATION_ENABLED': True,
-    'REGISTER_EMAIL_VERIFICATION_URL': 'localhost:3000/verify-email/',
-
-    'RESET_PASSWORD_VERIFICATION_ENABLED': True,
-    'RESET_PASSWORD_VERIFICATION_URL': 'localhost:3000/reset-password/',
-
-
-    # SECURITY WARNING: don't run with this email in production!
-    'VERIFICATION_FROM_EMAIL': "allahanium@gmail.com",
-
-}
 
 # Database
 # https://docs.djangoproject.com/en/2.2/ref/settings/#databases
@@ -154,6 +105,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 AUTH_USER_MODEL = "userapi.User"
 
+<<<<<<< HEAD
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': [
         'rest_framework.authentication.TokenAuthentication',
@@ -161,6 +113,8 @@ REST_FRAMEWORK = {
     # TODO: this breaks the code.
     #  'DEFAULT_SCHEMA_CLASS': 'rest_framework.schemas.coreapi.AutoSchema'
 }
+=======
+>>>>>>> origin/master
 
 # Internationalization
 # https://docs.djangoproject.com/en/2.2/topics/i18n/
