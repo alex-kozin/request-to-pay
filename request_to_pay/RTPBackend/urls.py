@@ -1,5 +1,6 @@
 from django.urls import path
 from . import api_views
+from . import views
 
 urlpatterns = [
     path('items/', api_views.ItemList.as_view()),
@@ -12,5 +13,6 @@ urlpatterns = [
 
     path('invoices/', api_views.InvoiceList.as_view()),
     path('invoices/new', api_views.InvoiceCreate.as_view()),
-    path('invoices/<str:id>/', api_views.InvoiceRetrieveUpdateDestroy.as_view()),
+    path('invoices/<int:id>/', api_views.InvoiceRetrieveUpdateDestroy.as_view()),
+    path('pay/', views.DriverNotificationView.as_view()),
 ]
