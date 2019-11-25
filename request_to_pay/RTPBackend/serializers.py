@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from userapi.serializers import UserProfileSerializer
+from userapi.serializers import UserSerializer
 from .models import Item, Order, Invoice
 
 
@@ -17,8 +17,8 @@ class OrderSerializer(serializers.ModelSerializer):
 
 
 class InvoiceSerializer(serializers.ModelSerializer):
-    customer = UserProfileSerializer(read_only=True)
-    driver = UserProfileSerializer(read_only=True)
+    customer = UserSerializer(read_only=True)
+    driver = UserSerializer(read_only=True)
 
     class Meta:
         model = Invoice

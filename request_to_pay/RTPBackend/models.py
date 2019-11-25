@@ -47,13 +47,13 @@ class Invoice(models.Model):
     STATUS_CHOICES = [("A", "Active"), ("P", "Paid"), ("D", "Delivered")]
     status = models.CharField(choices=STATUS_CHOICES, max_length=1)
 
-    customer = models.ForeignKey("userapi.UserProfile",
+    customer = models.ForeignKey("userapi.User",
                                  related_name="invoices_to_pay",
                                  on_delete=models.CASCADE,
                                  limit_choices_to={'user_type': 'C'}
                                  )
 
-    driver = models.ForeignKey("userapi.UserProfile",
+    driver = models.ForeignKey("userapi.User",
                                related_name="invoices_to_check",
                                on_delete=models.CASCADE,
                                limit_choices_to={'user_type': 'D'}
