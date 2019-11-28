@@ -24,3 +24,9 @@ class InvoiceSerializer(serializers.ModelSerializer):
         model = Invoice
         fields = ("id", "price", "status", "customer", "driver", "orders")
         depth = 2
+
+
+# class NotifySerializer(serializers.Serializer):
+#
+#     email_subject = serializers.CharField(max_length=120, allow_blank=False)
+#     email_message = serializers.CharField(allow_blank=False)
