@@ -1,6 +1,12 @@
+from rest_framework.response import Response
+from rest_framework import status
 from rest_framework.generics import ValidationError
+from rest_framework.views import APIView
 from rest_framework.generics import ListAPIView, CreateAPIView, RetrieveUpdateDestroyAPIView
 from django_filters.rest_framework import DjangoFilterBackend
+from django.core.mail import send_mail
+from django.conf import settings
+from time import sleep
 from .serializers import ItemSerializer, OrderSerializer, InvoiceSerializer
 from .models import Item, Order, Invoice
 
@@ -100,3 +106,72 @@ class InvoiceRetrieveUpdateDestroy(RetrieveUpdateDestroyAPIView):
     queryset = Invoice.objects.all()
     lookup_field = "id"
     serializer_class = InvoiceSerializer
+
+
+class InvoicePayView(APIView):
+    # serializer_class = NotifySerializer
+
+    def post(self, request, invoice_id):
+        # Mocking the external Payment API if specified
+        # WARNING: replace this with actual Interac API call in production!
+        sleep(1)
+
+        # Update invoice to 'PAID'
+        invoice = Invoice.objects.get(pk=invoice_id)
+
+        # The invoice can't be delivered without being 'ACTIVE'
+        if invoice.status != 'A':
+            return Response(
+                {invoice.status: "Invoice status must be 'A' (active)"},
+                status=status.HTTP_406_NOT_ACCEPTABLE)
+
+        invoice.status = 'P'
+        invoice.save()
+
+        # Notify the driver
+        receiver = invoice.driver
+        # subject = request.data['email_subject']
+        # message = request.data["email_message"]
+
+        subject = f"Invoice #{invoice.id} was paid"
+        message = f"Invoice #{invoice.id} was paid." \
+                  f" Please unload the goods at {invoice.customer.address}."
+
+
+        send_mail(subject, message,
+            settings.EMAIL_HOST_USER,
+            [receiver.email],
+            fail_silently=False,)
+
+        return Response(status=status.HTTP_200_OK)
+
+
+class InvoiceDeliverView(APIView):
+    # serializer_class = NotifySerializer
+
+    def post(self, request, invoice_id):
+        # Update invoice to 'DELIVERED'
+        invoice = Invoice.objects.get(pk=invoice_id)
+
+        # The invoice can't be delivered without being 'PAID'
+        if invoice.status != 'P':
+            return Response({invoice.status: "Invoice status must be 'P' (paid)"},
+                            status=status.HTTP_402_PAYMENT_REQUIRED)
+
+        invoice.status = 'D'
+        invoice.save()
+
+        # Notify the customer
+        receiver = invoice.customer
+        # subject = request.data['email_subject']
+        # message = request.data["email_message"]
+
+        subject = f"Items in the invoice #{invoice.id} have shipped"
+        message = f"Items in the invoice #{invoice.id} have shipped. Have a nice day!"
+
+        send_mail(subject, message,
+                  settings.EMAIL_HOST_USER,
+                  [receiver.email],
+                  fail_silently=False, )
+
+        return Response(status=status.HTTP_200_OK)
