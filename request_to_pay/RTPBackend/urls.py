@@ -12,7 +12,7 @@ urlpatterns = [
 
     path('invoices/', api_views.InvoiceList.as_view()),
     path('invoices/new', api_views.InvoiceCreate.as_view()),
-    path('invoices/<int:id>/', api_views.InvoiceRetrieveUpdateDestroy.as_view()),
-    path('invoices/<int:invoice_id>/pay', api_views.InvoicePayView.as_view()),
-    path('invoices/<int:invoice_id>/deliver', api_views.InvoiceDeliverView.as_view()),
+    path('invoices/<str:id>/', api_views.InvoiceRetrieveUpdateDestroy.as_view()),
+    path('invoices/<str:invoice_id>/pay', api_views.InvoicePayView.as_view()),
+    path('invoices/<str:invoice_id>/deliver', api_views.InvoiceDeliverView.as_view()),
     ]
