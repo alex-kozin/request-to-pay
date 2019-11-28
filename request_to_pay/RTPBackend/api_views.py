@@ -4,9 +4,8 @@ from rest_framework.generics import ValidationError
 from rest_framework.views import APIView
 from rest_framework.generics import ListAPIView, CreateAPIView, RetrieveUpdateDestroyAPIView
 from django_filters.rest_framework import DjangoFilterBackend
-from django.core.mail import send_mail
-from django.conf import settings
 from time import sleep
+from userapi.notifications import EmailNotifications as email
 from .serializers import ItemSerializer, OrderSerializer, InvoiceSerializer
 from .models import Item, Order, Invoice
 
@@ -109,10 +108,9 @@ class InvoiceRetrieveUpdateDestroy(RetrieveUpdateDestroyAPIView):
 
 
 class InvoicePayView(APIView):
-    # serializer_class = NotifySerializer
 
     def post(self, request, invoice_id):
-        # Mocking the external Payment API if specified
+        # Mocking the external Payment API
         # WARNING: replace this with actual Interac API call in production!
         sleep(1)
 
@@ -129,25 +127,15 @@ class InvoicePayView(APIView):
         invoice.save()
 
         # Notify the driver
-        receiver = invoice.driver
-        # subject = request.data['email_subject']
-        # message = request.data["email_message"]
-
-        subject = f"Invoice #{invoice.id} was paid"
-        message = f"Invoice #{invoice.id} was paid." \
-                  f" Please unload the goods at {invoice.customer.address}."
-
-
-        send_mail(subject, message,
-            settings.EMAIL_HOST_USER,
-            [receiver.email],
-            fail_silently=False,)
+        email.notify(receiver = invoice.driver,
+                     subject = f"Invoice #{invoice.id} was paid",
+                     message = f"Invoice #{invoice.id} was paid."
+                               f" Please unload the goods at {invoice.customer.address}.")
 
         return Response(status=status.HTTP_200_OK)
 
 
 class InvoiceDeliverView(APIView):
-    # serializer_class = NotifySerializer
 
     def post(self, request, invoice_id):
         # Update invoice to 'DELIVERED'
@@ -162,16 +150,8 @@ class InvoiceDeliverView(APIView):
         invoice.save()
 
         # Notify the customer
-        receiver = invoice.customer
-        # subject = request.data['email_subject']
-        # message = request.data["email_message"]
-
-        subject = f"Items in the invoice #{invoice.id} have shipped"
-        message = f"Items in the invoice #{invoice.id} have shipped. Have a nice day!"
-
-        send_mail(subject, message,
-                  settings.EMAIL_HOST_USER,
-                  [receiver.email],
-                  fail_silently=False, )
+        email.notify(receiver = invoice.customer,
+                     subject = f"Items in the invoice #{invoice.id} have shipped",
+                     message = f"Items in the invoice #{invoice.id} have shipped. Have a nice day!")
 
         return Response(status=status.HTTP_200_OK)
