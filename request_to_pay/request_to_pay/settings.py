@@ -42,7 +42,7 @@ INSTALLED_APPS = [
     'rest_registration',
     'django_filters',
     'rest_framework_swagger',
-    'userapi',
+    'request_to_pay.userapi',
     'RTPBackend',
     'corsheaders'
 ]
