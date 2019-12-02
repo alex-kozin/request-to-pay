@@ -166,6 +166,12 @@ CORS_ORIGIN_WHITELIST = [
     'https://request-to-pay.surge.sh'
 ]
 
+CSRF_TRUSTED_ORIGINS = [
+    'request-to-pay.surge.sh',
+]
+
+
+
 # Internationalization
 # https://docs.djangoproject.com/en/2.2/topics/i18n/
 
