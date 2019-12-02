@@ -25,7 +25,7 @@ SECRET_KEY = '_hgpcvux!cde98os87-^h9q@^xbgvq*gba*bz$y1q27ct!=4$b'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = [u'localhost']
+ALLOWED_HOSTS = [u'localhost', u'request-to-pay.surge.sh']
 
 
 # Application definition
