@@ -166,9 +166,13 @@ CORS_ORIGIN_WHITELIST = [
     'https://request-to-pay.surge.sh'
 ]
 
+CORS_ALLOW_CREDENTIALS = True
+
+
 CSRF_TRUSTED_ORIGINS = [
     'request-to-pay.surge.sh',
 ]
+
 
 
 
