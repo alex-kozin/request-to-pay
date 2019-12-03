@@ -89,7 +89,7 @@ EMAIL_USE_TLS = True
 # SECURITY WARNING: don't run with this email in production!
 EMAIL_HOST_USER = 'cocacolathecompany@gmail.com'
 # SECURITY WARNING: keep the password for the email used in production secret!
-EMAIL_HOST_PASSWORD = "$cZcEA-3~L*fbv.*"
+EMAIL_HOST_PASSWORD = "wronghorsebatterystaple"
 
 
 REST_REGISTRATION = {
