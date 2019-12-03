@@ -2,6 +2,10 @@ from django.contrib import admin
 from django.db.models.base import ModelBase
 from . import models
 from userapi import models as user_models
+# Admin site setup
+admin.site.site_header = 'Coca-Cola Admin'
+
+
 # Register your models here.
 
 
