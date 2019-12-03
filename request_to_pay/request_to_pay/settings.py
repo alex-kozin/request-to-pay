@@ -25,7 +25,7 @@ SECRET_KEY = '_hgpcvux!cde98os87-^h9q@^xbgvq*gba*bz$y1q27ct!=4$b'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = [u'localhost']
+ALLOWED_HOSTS = [u'localhost', u'request-to-pay.surge.sh']
 
 
 # Application definition
@@ -162,6 +162,20 @@ REST_FRAMEWORK = {
     ] + (['rest_framework.authentication.SessionAuthentication'] if DEBUG else []),
 }
 
+CORS_ORIGIN_WHITELIST = [
+    'https://request-to-pay.surge.sh'
+]
+
+CORS_ALLOW_CREDENTIALS = True
+
+
+CSRF_TRUSTED_ORIGINS = [
+    'request-to-pay.surge.sh',
+]
+
+
+
+
 # Internationalization
 # https://docs.djangoproject.com/en/2.2/topics/i18n/
 
@@ -180,3 +194,6 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/2.2/howto/static-files/
 
 STATIC_URL = '/static/'
+
+import django_heroku
+django_heroku.settings(locals())
