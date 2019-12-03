@@ -163,6 +163,7 @@ REST_FRAMEWORK = {
 }
 
 CORS_ORIGIN_WHITELIST = [
+    'http://localhost:3000',
     'https://request-to-pay.surge.sh'
 ]
 
