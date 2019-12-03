@@ -1,5 +1,8 @@
 from django.contrib import admin
 from django.db.models.base import ModelBase
+from django.utils.safestring import mark_safe
+from django.urls import reverse
+
 from . import models
 from userapi import models as user_models
 # Admin site setup
@@ -31,8 +34,8 @@ def makeTabular(model):
 
 
 class InvoiceAdmin(admin.ModelAdmin):
-    list_display = ['id', 'total_price', 'customer', 'driver']
-    list_display_links = ['id', 'customer', 'driver']
+    list_display = ('id', 'total_price', 'customer_link', 'driver_link', 'status')
+    list_display_links = ('id',)
 
     inlines = [
         makeTabular(models.Order),
@@ -43,6 +46,17 @@ class InvoiceAdmin(admin.ModelAdmin):
 
     def get_changeform_initial_data(self, request):
         return {'status': 'A', }
+
+    def customer_link(self, obj):
+        url = reverse("admin:userapi_user_change", args=[obj.customer.id])
+        link = '<a href="%s">%s</a>' % (url, f'{obj.customer.get_full_name()}')
+        return mark_safe(link)
+    customer_link.short_description = 'Customer'
+
+    def driver_link(self, obj):
+        url = reverse("admin:userapi_user_change", args=[obj.driver.id])
+        link = '<a href="%s">%s</a>' % (url, f'{obj.driver.get_full_name()}')
+        return mark_safe(link)
 
 
 class ItemAdmin(admin.ModelAdmin):
