@@ -4,6 +4,7 @@ from rest_framework.generics import ValidationError
 from rest_framework.views import APIView
 from rest_framework.generics import ListAPIView, CreateAPIView, RetrieveUpdateDestroyAPIView
 from django_filters.rest_framework import DjangoFilterBackend
+from django_filters import rest_framework as filters
 from time import sleep
 from userapi.notifications import EmailNotifications as email
 from .serializers import ItemSerializer, OrderSerializer, InvoiceSerializer
@@ -69,13 +70,19 @@ class OrderRetrieveUpdateDestroy(RetrieveUpdateDestroyAPIView):
     lookup_field = "id"
     serializer_class = OrderSerializer
 
+class InvoiceFilter(filters.FilterSet):
+    status__not = filters.CharFilter(field_name="status", exclude=True)
+    class Meta:
+        model = Invoice
+        fields = ('id', 'driver', 'customer', 'status')
+
 
 class InvoiceList(ListAPIView):
     """View all invoices created"""
     queryset = Invoice.objects.all()
     serializer_class = InvoiceSerializer
     filter_backends = (DjangoFilterBackend, )
-    filterset_fields = ('id', 'driver', 'customer', 'status')
+    filterset_class = InvoiceFilter
 
 
 class InvoiceCreate(CreateAPIView):
