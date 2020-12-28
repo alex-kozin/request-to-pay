@@ -62,3 +62,5 @@ Here are instructions on how to get started:
     (you should have installed it in Step 5):
     
         http -f POST http://127.0.0.1:8000/api/items/new name="Coke Ultra" price=200
+
+The backend is deployed on Heroku: https://stormy-tor-06010.herokuapp.com/
